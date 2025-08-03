@@ -1,5 +1,3 @@
-%% Simplified TCAS II Simulation - Head-on Scenario Only
-% Simple implementation ready for Simulink conversion
 clear; close all; clc;
 
 %% Parameters
@@ -7,32 +5,53 @@ dt = 0.1;           % Time step (seconds)
 t_sim = 60;         % Total simulation time (seconds)
 time = 0:dt:t_sim;
 
-% TCAS Thresholds
+% TCAS Thresholds - Based on FAA Table
 TAU_TA = 48;        % Traffic Advisory threshold (seconds)
-DMOD_TA = 2407;     % Traffic Advisory distance threshold (meters)
+DMOD_TA = 2407;     % Traffic Advisory distance threshold (meters) 20000-42000 1.30nm
 TAU_RA = 35;        % Resolution Advisory threshold (seconds)
-DMOD_RA = 2307;     % Resolution Advisory distance threshold (meters)
+DMOD_RA = 2037;     % Resolution Advisory distance threshold (meters) 20000-42000 1.10nm
 
-% Aircraft IDs (for parity check)
-ac1_id = 1234;      % Own aircraft ID (even)
-ac2_id = 567;       % Intruder ID (odd)
+% % Aircraft IDs (for parity check)
+% ac1_id = 333;      % Own aircraft ID (even)
+% ac2_id = 4268;       % Intruder ID (odd)
 
 % =====================
 % Aircraft Initial Conditions
 % =====================
 % Uncomment the scenario you want to simulate:
 
-% --- Head-on Scenario ---
-% ac1_x0 = 0;         ac1_y0 = 10000;     ac1_vx = 120;   ac1_vy = 0;     % Own aircraft
-% ac2_x0 = 15000;     ac2_y0 = 10000;     ac2_vx = -120;  ac2_vy = 0;     % Intruder
 
-% --- Überlingen Collision Scenario ---
-ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 120;   ac1_vy = 0;     % Own aircraft
-ac2_x0 = 15000;     ac2_y0 = 36000;     ac2_vx = -120;  ac2_vy = 0;     % Intruder
+% % --- Head-on-Head Collision Scenario (Different Parity) ---
+%ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 120;   ac1_vy = 0;   ac1_id = 1234;      % Own aircraft
+%ac2_x0 = 15000;     ac2_y0 = 36000;     ac2_vx = -120;  ac2_vy = 0;   ac2_id = 5679;      % Intruder
 
-% --- Overtaking Scenario ---
-% ac1_x0 = 0;         ac1_y0 = 10000;     ac1_vx = 250;   ac1_vy = 0;     % Own aircraft (faster, behind)
-% ac2_x0 = 8500;      ac2_y0 = 10000;     ac2_vx = 100;   ac2_vy = 0;     % Intruder (slower, ahead)
+% % --- Head-on-Head Collision Scenario (Same Parity) ---
+% ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 120;   ac1_vy = 0;   ac1_id = 1234;      % Own aircraft
+% ac2_x0 = 15000;     ac2_y0 = 36000;     ac2_vx = -120;  ac2_vy = 0;   ac2_id = 5678;      % Intruder
+
+% % --- Head-on-Head Collision Scenario (Same ID) ---
+ % ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 120;   ac1_vy = 0;   ac1_id = 1234;      % Own aircraft
+ % ac2_x0 = 15000;     ac2_y0 = 36000;     ac2_vx = -120;  ac2_vy = 0;   ac2_id = 1234;      % Intruder
+
+ % % --- Head-on-Head Collision Scenario (Odd ID - Descend Case) ---
+ % ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 120;   ac1_vy = 0;   ac1_id = 5679;      % Own aircraft
+ % ac2_x0 = 15000;     ac2_y0 = 36000;     ac2_vx = -120;  ac2_vy = 0;   ac2_id = 1234;      % Intruder
+
+% % --- Overtaking Scenario (Different Parity)---
+  %ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 250;   ac1_vy = 0;  ac1_id = 1234;     % Own aircraft (faster, behind)
+  %ac2_x0 = 8500;      ac2_y0 = 36000;     ac2_vx = 100;   ac2_vy = 0;  ac2_id = 5679;     % Intruder (slower, ahead)
+
+% % --- Overtaking Scenario (Same Parity)--- 
+%  ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 250;   ac1_vy = 0;  ac1_id = 1234;     % Own aircraft (faster, behind)
+%  ac2_x0 = 8500;      ac2_y0 = 36000;     ac2_vx = 100;   ac2_vy = 0;  ac2_id = 5678;     % Intruder (slower, ahead)
+
+% % --- Overtaking Scenario (Same ID)---
+ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 250;   ac1_vy = 0;  ac1_id = 1234;     % Own aircraft (faster, behind)
+ac2_x0 = 8500;      ac2_y0 = 36000;     ac2_vx = 100;   ac2_vy = 0;  ac2_id = 1234;     % Intruder (slower, ahead)
+
+% % --- Overtaking Scenario (Odd ID)---
+%  ac1_x0 = 0;         ac1_y0 = 36000;     ac1_vx = 250;   ac1_vy = 0;  ac1_id = 333;     % Own aircraft (faster, behind)
+%  ac2_x0 = 8500;      ac2_y0 = 36000;     ac2_vx = 100;   ac2_vy = 0;  ac2_id = 444;     % Intruder (slower, ahead)
 
 % Initialize storage
 n_steps = length(time);
@@ -263,8 +282,8 @@ function update_2d_plot(fig, ac1_pos, ac2_pos, current_step, advisory, t, range,
         sprintf('Closing Velocity: %.1f m/s', closing_vel);
         '';
         '=== THRESHOLDS ===';
-        sprintf('RA Distance: %.2f km', DMOD_RA);
-        sprintf('TA Distance: %.2f km', DMOD_TA);
+        sprintf('RA Distance: %.2f m', DMOD_RA);
+        sprintf('TA Distance: %.2f m', DMOD_TA);
         sprintf('RA TAU: %.0f s', TAU_RA);
         sprintf('TA TAU: %.0f s', TAU_TA);
         '';
