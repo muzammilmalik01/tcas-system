@@ -179,11 +179,14 @@ t_sim = 60;         % Total simulation time (seconds)
 
 ## 📊 Diagrams
 - **Use Case Diagram**:
+  
 ![System Use Case Diagram](Images/TCAS-UseCaseDiagram.png)
 - **Sequence Diagrams**:
+  
 ![Sequence Diagram](Images/SequenceDiagram-Pilot2.png)
 - **Activtity Diagram**:
-![Activity Diagram](images/TCAS-ActivityDiagram.png)
+  
+![Activity Diagram](Images/TCAS-ActivityDiagram.png)
 
 *Note: All diagrams are available in high resolution in the `Images/` folder.*
 
@@ -238,13 +241,13 @@ The final report provides a detailed overview of the **TCAS II digital twin**, d
 - **Appendices**: Calculations, constraints, extra diagrams  
 - **References**: FAA & ICAO documentation on TCAS II  
 
-📄 The complete report is available in [`Final_Report_TCAS_Simulation.pdf`](./Documentation/TCAS-Hazard-Analysis.pdf)
+📄 The complete report is available in [`Final_Report_TCAS_Simulation.pdf`](./Documentation/TCAS-Final-Report.pdf)
 
 ## 📚 Documentation
 
 ### Available Documentation
-- **Final Report**: TCAS Development Details
-- **Hazard Analysis Reports**: FMEA, STPA, and STPA-Sec detailed analysis
-- **FAA Guidelines**: Official FAA guidelines for TCAS v7.1 System
+- **Final Report**: TCAS Development Details [`Final_Report_TCAS_Simulation.pdf`](./Documentation/TCAS-Final-Report.pdf)
+- **Hazard Analysis Reports**: FMEA, STPA, and STPA-Sec detailed analysis [`Hazard_Analysis.pdf`](./Documentation/TCAS-Hazard-Analysis.pdf)
+- **FAA Guidelines**: Official FAA guidelines for TCAS v7.1 System [`FAA_Guidelines.pdf`](./Documentation/TCAS-FAA-Guideline-1.pdf)
 ---
 
