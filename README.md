@@ -3,19 +3,6 @@
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2023b-blue.svg)](https://www.mathworks.com/products/matlab.html)
 [![Status](https://img.shields.io/badge/Status-Development%20Project-green.svg)]()
 
-## 📋 Table of Contents
-- [Overview](#overview)
-- [Features](#features)
-- [Hazard Analysis](#hazard-analysis)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Simulation Scenarios](#simulation-scenarios)
-- [Technical Specifications](#technical-specifications)
-- [Demo](#demo)
-- [Diagrams](#diagrams)
-- [Final Report](#final-report)
-- [Documentation](#documentation)
-
 ## 🎯 Overview
 
 This project implements a comprehensive **Traffic Collision Avoidance System (TCAS)** simulation in MATLAB, designed for aviation safety research and educational purposes. TCAS is a critical safety system that helps prevent mid-air collisions by providing pilots with traffic advisories and resolution advisories.
